@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Ofis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23185c4f'/><circle cx='16' cy='12' r='5' fill='%23f3d9bf'/><path d='M7 27c1.5-6 5-8 9-8s7.5 2 9 8' fill='%2356c2a5'/></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <aside class="side" aria-label="Menü">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div><div class="brand-name">Agent Ofis</div><div class="brand-sub">Claude ekibin</div></div>
+    </div>
+    <nav class="nav">
+      <a href="#genel" data-route="genel"><span class="ic">◎</span>Genel bakış<kbd>1</kbd></a>
+      <a href="#ofis" data-route="ofis"><span class="ic">▦</span>Ofis<kbd>2</kbd></a>
+      <a href="#akis" data-route="akis"><span class="ic">≋</span>Canlı akış<kbd>3</kbd></a>
+      <a href="#oturumlar" data-route="oturumlar"><span class="ic">☰</span>Oturumlar<span class="count" id="navSessions"></span><kbd>4</kbd></a>
+      <a href="#projeler" data-route="projeler"><span class="ic">▣</span>Projeler<span class="count" id="navProjects"></span><kbd>5</kbd></a>
+    </nav>
+    <div class="side-foot">
+      <div class="conn" id="conn"><i></i><span>bağlanıyor…</span></div>
+      <button class="link" id="themeBtn" type="button">Tema: otomatik</button>
+      <button class="link" id="phoneBtn" type="button">📱 Telefondan aç</button>
+      <button class="link" id="openClaude" type="button">Claude uygulamasını aç ↗</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="top">
+      <h1 id="pageTitle">Genel bakış</h1>
+      <div class="search">
+        <input id="search" type="search" autocomplete="off" placeholder="Oturum, proje veya istem ara…" aria-label="Ara" />
+        <kbd>⌘K</kbd>
+        <div class="search-results" id="searchResults" hidden></div>
+      </div>
+      <div class="updated" id="updated"></div>
+    </header>
+
+    <section class="view" id="view-genel"></section>
+    <section class="view" id="view-ofis" hidden>
+      <div class="toolbar">
+        <div class="seg" id="officeFilter">
+          <button data-v="acik" class="on">Açık oturumlar</button>
+          <button data-v="hepsi">+ son 14 gün</button>
+          <button data-v="calisan">Sadece çalışan</button>
+        </div>
+        <div class="legend">
+          <span><i class="dot calisiyor"></i>Çalışıyor</span><span><i class="dot bekliyor"></i>Onay bekliyor</span>
+          <span><i class="dot bosta"></i>Boşta</span><span><i class="dot kapali"></i>Kapalı</span>
+        </div>
+        <div class="seg" id="viewMode"><button data-v="3d" class="on">3B</button><button data-v="2d">2B</button></div>
+        <button class="btn sm" id="overviewBtn" title="Tüm ofisi göster">⤢ Genel görünüm</button>
+        <div class="seg zoom" id="zoom2d"><button id="zoomOut" aria-label="Uzaklaştır">−</button><button id="zoomIn" aria-label="Yakınlaştır">+</button></div>
+      </div>
+      <div class="office3d" id="office3d" hidden>
+        <div class="tooltip" id="tooltip3d" hidden></div>
+        <div class="hint3d" id="hint3d">Sürükle: döndür · Kaydır/çimdikle: yakınlaştır · Sağ tık/iki parmak: kaydır · Robota tıkla: detay</div>
+      </div>
+      <div class="office-wrap" id="officeWrap">
+        <canvas id="office"></canvas>
+        <div class="tooltip" id="tooltip" hidden></div>
+      </div>
+    </section>
+    <section class="view" id="view-akis" hidden></section>
+    <section class="view" id="view-oturumlar" hidden></section>
+    <section class="view" id="view-projeler" hidden></section>
+  </div>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="Oturum detayı" hidden></aside>
+  <div class="toast" id="toast" hidden></div>
+  <div class="modal" id="phoneModal" hidden role="dialog" aria-label="Telefondan aç">
+    <div class="modal-card">
+      <button class="close" data-closemodal aria-label="Kapat">×</button>
+      <h2>Telefondan aç</h2>
+      <p>Telefon bu Mac ile <b>aynı Wi-Fi'de</b> olmalı. Kamerayla karekodu okut; bağlantı telefonda bir kez açılınca hatırlanır.</p>
+      <div id="qr" class="qr"></div>
+      <div class="phone-url mono" id="phoneUrl"></div>
+      <div class="btns"><button class="btn" id="copyPhone">Bağlantıyı kopyala</button></div>
+      <p class="fine">Bu bağlantı gizli bir anahtar içerir; kimseyle paylaşma. Anahtarı yenilemek için <code>.ofis-token</code> dosyasını silip ofisi yeniden başlat.</p>
+    </div>
+  </div>
+</div>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script src="app.js"></script>
+<script type="module" src="office3d.js"></script>
+</body>
+</html>

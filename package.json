@@ -1,0 +1,12 @@
+{
+  "name": "agent-ofis",
+  "version": "1.0.0",
+  "description": "Claude Code oturumlarını canlı bir 3B sanal ofiste gösteren yerel kontrol paneli",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "author": "İrem Nur Göçer (https://github.com/iremnurgocer)",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/iremnurgocer/agent-ofis.git" },
+  "keywords": ["claude", "claude-code", "dashboard", "three.js", "agents"]
+}

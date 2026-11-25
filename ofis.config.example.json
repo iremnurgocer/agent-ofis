@@ -1,0 +1,6 @@
+{
+  "projectRoots": ["~/Projects", "~/Developer", "~/code"],
+  "activeWindowSec": 90,
+  "recentDays": 14,
+  "lan": false
+}

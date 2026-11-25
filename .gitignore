@@ -1,0 +1,5 @@
+node_modules/
+ofis.config.json
+.DS_Store
+.ofis-token
+_indirilen/
